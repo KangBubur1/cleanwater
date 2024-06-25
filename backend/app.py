@@ -20,9 +20,13 @@ def get_data():
 def predict():
     try:
         data = request.get_json()
+        print(data)
         query_df = pd.DataFrame([data])
-        prediction = model.predict(query_df)
-        return jsonify({'Prediction': list(prediction)})
+        print(query_df)
+        prediction = model.predict(query_df.values)
+        # Mengubah prediksi ke dalam format 0 atau 1
+        prediction = 0 if prediction[0] == 1 else 0
+        return jsonify({'Prediction': prediction})
     except Exception as e:
         return jsonify({'error': str(e)})
     

@@ -36,8 +36,8 @@ df_selected['ph'] = imputer.fit_transform(df_selected[['ph']])
 df_null_values = df_selected.isnull().sum()
 print(df_null_values)
 
-X = df_selected.drop(['Potability'], axis=1)
-y = df_selected['Potability']
+X = df_selected.drop(['Potability'], axis=1).values
+y = df_selected['Potability'].values
 
 # Train-Test Split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size= 0.2, random_state=42)
@@ -47,14 +47,6 @@ scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
-# K-Nearest Neighbors
-knn = KNeighborsClassifier(n_neighbors=5)
-knn.fit(X_train_scaled, y_train)
-y_pred_knn = knn.predict(X_test_scaled)
-print("K-Nearest Neighbors")
-print(classification_report(y_test, y_pred_knn))
-print("Accuracy:", accuracy_score(y_test, y_pred_knn))
-
 # Support Vector Machine
 svm = SVC(kernel='rbf')
 svm.fit(X_train_scaled, y_train)
@@ -63,25 +55,6 @@ print("\nSupport Vector Machine")
 print(classification_report(y_test, y_pred_svm))
 print("Accuracy:", accuracy_score(y_test, y_pred_svm))
 
-# Random Forest
-rf = RandomForestClassifier(n_estimators=100, random_state=42)
-rf.fit(X_train, y_train)
-y_pred_rf = rf.predict(X_test)
-print("\nRandom Forest")
-print(classification_report(y_test, y_pred_rf))
-print("Accuracy:", accuracy_score(y_test, y_pred_rf))
-
-# Plot feature importances for Random Forest
-importances = rf.feature_importances_
-features = X.columns
-indices = np.argsort(importances)[::-1]
-
-plt.figure(figsize=(10, 6))
-plt.title("Feature Importances - Random Forest")
-plt.bar(range(X.shape[1]), importances[indices], align='center')
-plt.xticks(range(X.shape[1]), features[indices], rotation=90)
-plt.tight_layout()
-plt.show()
 
 pickle.dump(svm, open('ml_model.pkl', 'wb'))
 
