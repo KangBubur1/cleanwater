@@ -1,67 +1,82 @@
+import Heading from "@/components/Heading";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import { Card, CardContent } from "@/components/ui/card";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+
+
+import HeroSection from "@/components/HeroSection";
+import About from "@/components/About";
+import { DATA_KEADAAN_AIR, DATA_LOKASI_AIR } from "@/lib/data";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { SearchIcon, ThumbsDownIcon } from "lucide-react";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { GlareCard } from "@/components/ui/glare-card";
+import KeadaanAir from "@/components/KeadaanAir";
 
 export default function Home() {
   return (
     <div>
 
       {/* Hero section */}
-      <section className="background-image">
-        <MaxWidthWrapper className="pt-80">
-          <div className=" flex justify-between items-center">
-            {/* Left section */}
-            <div>
-              <h1 className="text-9xl text-white font-semibold">Clean Water</h1>
-              <p className="text-2xl mt-4 text-white font-medium">Air Bersih untuk Semua, Masa Depan untuk Semua.</p>
-            </div>
-
-            {/* Right Section */}
-            <div>
-              <img src="illustration.jpg" className="w-[360px] h-[480px]"/>
-            </div>
-          </div>
-        </MaxWidthWrapper>
-      </section>
+      <HeroSection/>
 
       {/* Border */}
-      <div className="border w-full absolute bg-black blur-sm "/>
+      <div className=" w-full absolute bg-black blur-sm "/>
 
-      {/* Second Section */}
-      <section className="background-image2">
-        <MaxWidthWrapper className="flex h-full items-center border justify-between">
-          {/* Left Section */}
-          <div className="w-[565px]">
-            <h2 className="text-6xl text-white font-semibold">
-              Clean Water
-            </h2>
-            <p className="text-2xl text-white text-justify mt-4 font-light">
-             CleanWater hadir untuk membantu Anda menemukan dan menjaga akses terhadap air bersih. Kami percaya bahwa air bersih adalah hak setiap orang, dan bersama kita dapat membuat perubahan.
-            </p>
+      {/* About Section */}
+      <About/>
+
+      {/* Keadaan air */}
+      <KeadaanAir/>
+
+      {/* Lokasi */}
+      <section className="pt-24 mb-24">
+        <MaxWidthWrapper>
+
+          <div className="pt-24 mb-24">
+            <Heading title="Lokasi" description="lokasi sumber air bersih"/>
           </div>
 
-          {/* Rigt Section Pictures */}
-          <div>
-            <Carousel className="w-full max-w-sm">
-              <CarouselContent>
-                {Array.from({ length: 5 }).map((_, index) => (
-                  <CarouselItem key={index}>
-                    <div className="p-1">
-                      <Card>
-                        <CardContent className="flex aspect-square items-center justify-center p-6">
-                          <span className="text-4xl font-semibold">{index + 1}</span>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
-            </Carousel>
+          <div className="mt-12 flex flex-col lg:flex-row  justify-around items-center">
+
+            {/* Left For maps */}
+            <div className="mb-12 lg:mb-0">
+              {/* Mapbox */}
+              <img src="https://api.mapbox.com/styles/v1/mapbox/light-v11/static/pin-s+555555(-71.115799,42.351133)/-71.1156,42.3511,15,0/320x150?access_token=pk.eyJ1Ijoia2FuZ2J1YnVyMSIsImEiOiJjbHh2YTNnM2UwanFvMmpvb2w4NjA4NmFiIn0.8jOxG4t6Ajd-Is7BaOp1-g" />
+            </div>
+
+            {/* List lokasi */}
+            <div className="max-w-md w-full p-4 border border-black rounded-xl">
+              <div className="flex w-full  max-w-md items-center space-x-2 mb-8">
+                <Input type="search" placeholder="Cari Lokasi..." className="border-black focus:border-none"/>
+                <Button type="submit"><SearchIcon/></Button>
+              </div>
+              <ScrollArea className="h-72 ">
+                <div className="p-4">
+                  {DATA_LOKASI_AIR.map((tag) => (
+                    <>
+
+                <div key={tag.koordinat} className="border border-black rounded-2xl mb-2 px-4 py-2 flex justify-between items-center">
+                <div>
+                  <h1>{tag.nama}</h1>
+                  <p>{tag.koordinat}</p>
+                </div>
+                <div>
+                  <ThumbsDownIcon fill="red"/>
+                </div>
+                </div>
+                    </>
+                  ))}
+                </div>
+                </ScrollArea>
+            </div>
           </div>
         </MaxWidthWrapper>
       </section>
+
+
+
     </div>
   )
 }
+
+

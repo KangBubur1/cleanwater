@@ -19,23 +19,26 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en" className='!scroll-smooth'>
-      <body className={poppins.className}>
-        
+            <body className={`
+            ${poppins.className}
+            min-h-screen flex flex-col 
+            
+            `
+          }>
         <Header/>
-        <main className="flex flex-col min-h-[calc(100vh-3.5rem-1px)]">
-          <div className="flex-1 flex-col flex h-full">
-            {children}
-          </div>
-          <Footer/>
+        <main className="flex flex-1 flex-col bg-gray-200/50 ">
+          {children}
         </main>
-
+        <Footer/>
         <Toaster/>
       </body>
     </html>
   );
 }
+
+

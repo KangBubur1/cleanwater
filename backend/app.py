@@ -1,38 +1,43 @@
 from flask import Flask, request, jsonify
 import pandas as pd
-from flask_cors import CORS #Cross-Origin Resource Sharing
+from flask_cors import CORS
 import pickle
 
-
 app = Flask(__name__)
-CORS(app, resources={r"/*":{"origins":"*"}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 model = pickle.load(open('ml_model.pkl', 'rb'))
-
-@app.route('/', methods=['GET'])
-def get_data():
-    data = {
-        "message":"API is Running"
-    }
-    return jsonify(data)
 
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        data = request.get_json()
-        print(data)
-        query_df = pd.DataFrame([data])
+        ph = request.form.get('ph')
+        solids = request.form.get('solids')
+        turbidity = request.form.get('turbidity')
+        file = request.files['file']  
+        
+        if not (ph and solids and turbidity and file):
+            return jsonify({'error': 'Missing required fields'}), 400
+        
+
+        query_df = pd.DataFrame({
+            'ph': [ph],
+            'solids': [solids],
+            'turbidity': [turbidity],
+        })
+        
         print(query_df)
+
+        # Lakukan prediksi menggunakan model Anda
         prediction = model.predict(query_df.values)
-        # Mengubah prediksi ke dalam format 0 atau 1
-        prediction = 0 if prediction[0] == 1 else 0
-        return jsonify({'Prediction': prediction})
-    except Exception as e:
-        return jsonify({'error': str(e)})
+        prediction_float = float(prediction[0])
+        print(prediction_float)
+
+        return jsonify({'Prediction': prediction_float})
     
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
-    
-    
-    
-# https://www.geeksforgeeks.org/integrating-a-ml-model-with-react-and-flask/
