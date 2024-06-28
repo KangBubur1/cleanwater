@@ -10,9 +10,9 @@ const Footer = () => {
           {/* Top Section */}
           <div className="flex flex-col lg:flex-row justify-between w-full lg:mb-8">
             <div className="w-full lg:w-1/3 mb-8 lg:mb-0">
-              <h2 className="text-sm font-semibold">Clean Water</h2>
+              <h2 className="text-sm font-semibold">Air Sehat</h2>
               <p className="text-sm text-justify mt-4 font-light">
-                CleanWater hadir untuk membantu Anda menemukan dan menjaga akses terhadap air bersih. Kami percaya bahwa air bersih adalah hak setiap orang, dan bersama kita dapat membuat perubahan.
+                AirSehat hadir untuk membantu Anda menemukan dan menjaga akses terhadap air bersih. Kami percaya bahwa air bersih adalah hak setiap orang, dan bersama kita dapat membuat perubahan.
               </p>
             </div>
 
@@ -40,23 +40,23 @@ const Footer = () => {
             </div>
 
             <div className="flex space-x-4 mb-4 lg:mb-0">
-              <Link href="#" className="text-sm text-muted-foreground hover:text-gray-600">
-                Terms
-              </Link>
-              <Link href="#" className="text-sm text-muted-foreground hover:text-gray-600">
-                Privacy Policy
-              </Link>
-              <Link href="#" className="text-sm text-muted-foreground hover:text-gray-600">
-                Cookies Policy
-              </Link>
+                <Link href="#" className="text-sm text-muted-foreground hover:text-gray-600">
+                    Syarat dan Ketentuan
+                </Link>
+                <Link href="#" className="text-sm text-muted-foreground hover:text-gray-600">
+                    Kebijakan Privasi
+                </Link>
+                <Link href="#" className="text-sm text-muted-foreground hover:text-gray-600">
+                    Kebijakan Cookie
+                </Link>
             </div>
 
-            <div className="text-center ">
-              <p className="text-sm text-muted-foreground">
-                &copy; {new Date().getFullYear()} All rights reserved
-              </p>
+            <div className="text-center">
+                <p className="text-sm text-muted-foreground">
+                    &copy; {new Date().getFullYear()} Hak cipta dilindungi
+                </p>
             </div>
-          </div>
+            </div>
         </div>
       </MaxWidthWrapper>
     </footer>

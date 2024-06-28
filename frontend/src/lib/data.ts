@@ -1,7 +1,7 @@
 export const LINKS = [
     {
         name: "Beranda",
-        hash: "#",
+        hash: "/",
     },
     {
         name: "Lokasi",
@@ -15,8 +15,8 @@ export const LINKS = [
         name: "Tentang Kami",
         hash: "#tentangkami",
     },
-
 ] as const;
+
 
 export const DATA_KEADAAN_AIR = [
     {

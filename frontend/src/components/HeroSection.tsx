@@ -19,7 +19,7 @@ const HeroSection = () => {
         >
 
           <div className="w-[360px] sm:w-full text-center">
-            <h1 className="text-5xl sm:text-8xl lg:text-9xl text-white font-semibold">Clean Water</h1>
+            <h1 className="text-5xl sm:text-8xl lg:text-9xl text-white font-semibold">Air Sehat</h1>
             <p className="text-xs sm:text-2xl lg:text-3xl mt-4 text-white font-medium">Pengecekan air dengan teknologi AI</p>
           </div>
 
@@ -33,7 +33,7 @@ const HeroSection = () => {
           </div>
 
           <div className="flex justify-center mt-auto  mb-8">
-            <Link href="#tentangkami">
+            <Link href="#brief">
               <Button variant="link" size="icon">
                 <CircleArrowDown className="h-8 w-8 text-white" />
               </Button>

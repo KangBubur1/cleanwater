@@ -29,7 +29,7 @@ export default function Home() {
       <KeadaanAir/>
 
       {/* Lokasi */}
-      <section className="pt-24 mb-24">
+      <section id="lokasi" className="pt-24 mb-24">
         <MaxWidthWrapper>
 
           <div className="pt-24 mb-24">

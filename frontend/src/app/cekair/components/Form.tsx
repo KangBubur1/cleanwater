@@ -5,10 +5,11 @@ import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Image, MousePointerSquareDashed } from "lucide-react";
+import { ArrowUp, Image,  MousePointerSquareDashed } from "lucide-react";
 import { useState, ChangeEvent, FormEvent, useRef, useEffect } from "react";
 import Dropzone, { FileRejection } from "react-dropzone";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 
 const INFORMASI = [
@@ -141,7 +142,7 @@ const Form = () => {
                     </div>
 
                     <div>
-                        <Label htmlFor="picture">Picture</Label>
+                        <Label htmlFor="picture">Gambar</Label>
                         <div className="grid w-full max-w-sm items-center gap-1.5">
                             <Dropzone
                                 onDropRejected={onDropRejected}
@@ -168,11 +169,11 @@ const Form = () => {
                                         <div className="flex flex-col justify-center mb-2 text-sm text-zinc-700">
                                             {isDragOver ? (
                                                 <p>
-                                                    <span className="font-semibold">Drop file</span> to upload
+                                                    <span className="font-semibold">Letakkan file</span> untuk mengunggah
                                                 </p>
                                             ) : (
                                                 <p>
-                                                    <span className="font-semibold">Click to upload</span> or drag and drop
+                                                    <span className="font-semibold">Klik untuk mengunggah</span> atau seret dan lepas
                                                 </p>
                                             )}
                                         </div>
@@ -183,20 +184,21 @@ const Form = () => {
                         </div>
                         {file && (
                             <div className="mt-2 max-w-sm">
-                                <p>Selected file: {file.name}</p>
+                                <p>File terpilih: {file.name}</p>
                                 <img
                                     src={URL.createObjectURL(file)}
-                                    alt="Selected image"
-                                    className="max-w-full h-auto mt-2"
+                                    alt="Gambar terpilih"
+                                    className="max-w-full h-auto mt-2 rounded-xl"
                                 />
                             </div>
                         )}
                     </div>
+
                 </div>
 
                 <div className="flex justify-end mt-4 mb-4">
                     <Button type="submit" variant="outline" disabled={isLoading}>
-                        {isLoading ? "Loading..." : "Submit"}
+                        {isLoading ? "Loading..." : "Unggah"}
                     </Button>
                 </div>
             </form>
@@ -204,40 +206,45 @@ const Form = () => {
             {/* Tampilkan hasil prediksi jika sudah ada */}
             <div className="mt-24 mb-12 scroll-mt-32" ref={resultRef}>
                 {showPrediction && (
-                <>
-                    <Heading title="Kualitas air anda" />
-                    <div className="pt-24">
-                    {result === 0 ? (
-                        <div className="flex justify-between">
-                        <div className="max-w-lg text-justify">
-                            <h1 className="font-bold text-6xl mb-4">Kotor</h1>
-                            <p className="text-2xl font-light mb-4">{handlingInfo}</p>
-                            <h1 className="font-bold text-2xl mb-4">Solusi</h1>
-                            <p className="text-2xl font-light mb-4">Solusi untuk PH rendah atau terlalu tinggi, kekeruhan terlalu tinggi</p>
+                    <div className="flex flex-col w-full justify-between items-center">
+                        <div className="flex flex-col w-full justify-between items-center">
+                            {result === 0 ? (
+                                <div className="flex flex-col lg:flex-row  w-full justify-between items-center">
+                                    <div className="max-w-lg text-justify mb-8 lg:mb-0">
+                                        <h1 className="font-bold text-4xl lg:text-6xl mb-4">Kotor</h1>
+                                        <p className="text-lg lg:text-2xl font-light mb-4">{handlingInfo}</p>
+                                        <h1 className="font-bold text-lg lg:text-2xl mb-4">Solusi</h1>
+                                        <p className="text-lg lg:text-2xl font-light mb-4">Solusi untuk PH rendah atau terlalu tinggi, kekeruhan terlalu tinggi</p>
+                                    </div>
+                                    <div className="">
+                                        <img src={file ? URL.createObjectURL(file) : ''} alt="Kotor" className="max-w-full lg:max-w-xl h-auto mt-2 rounded-xl" />
+                                    </div>
+                                </div>
+                            ) : result === 1 ? (
+                                <div className="flex flex-col lg:flex-row justify-between items-center">
+                                    <div className="max-w-lg text-justify mb-8 lg:mb-0">
+                                        <h1 className="font-bold text-4xl lg:text-6xl  mb-4">Bersih</h1>
+                                        <p className="text-lg lg:text-2xl font-light mb-4">{handlingInfo}</p>
+                                        <h1 className="font-bold text-lg lg:text-2xl mb-4">Solusi</h1>
+                                        <p className="text-lg lg:text-2xl font-light mb-4">Solusi untuk PH rendah atau terlalu tinggi, kekeruhan terlalu tinggi</p>
+                                    </div>
+                                    <div className="">
+                                        <img src={file ? URL.createObjectURL(file) : ''} alt="Bersih" className="max-w-full lg:max-w-xl h-auto mt-2 rounded-xl" />
+                                    </div>
+                                </div>
+                            ) : (
+                                "Menunggu hasil prediksi..."
+                            )}
                         </div>
-                        <div className="">
-                            <img src={file ? URL.createObjectURL(file) : ''} alt="Kotor" className="max-w-xl h-auto mt-2" />
-                        </div>
-                        </div>
-                    ) : result === 1 ? (
-                        <>
-                        <div className="flex justify-between">
-                            <div className="max-w-lg text-justify">
-                            <h1 className="font-bold text-6xl mb-4">Bersih</h1>
-                            <p className="text-2xl font-light mb-4">{handlingInfo}</p>
-                            <h1 className="font-bold text-2xl mb-4">Solusi</h1>
-                            <p className="text-2xl font-light mb-4">Solusi untuk PH rendah atau terlalu tinggi, kekeruhan terlalu tinggi</p>
+                        <Link href="" className="flex justify-center flex-col items-center mt-8">
+                            <div>
+                                <ArrowUp/>
                             </div>
-                            <div className="">
-                            <img src={file ? URL.createObjectURL(file) : ''} alt="Bersih" className="max-w-xl h-auto mt-2" />
+                            <div>
+                                <p>Cek Air Kembali</p>
                             </div>
-                        </div>
-                        </>
-                    ) : (
-                        "Menunggu hasil prediksi..."
-                    )}
+                        </Link>
                     </div>
-                </>
                 )}
             </div>
         </MaxWidthWrapper>
